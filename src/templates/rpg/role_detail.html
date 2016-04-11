@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ object.name }}
+        {% if request.role == object or request.user.is_superuser %}
+            (<a href="{% url "role_edit" object.id %}">редактировать</a>)
+        {% endif %}
+    </h1>
+
+    <p><strong>Год рождения</strong>: {{ object.year }}</p>
+    <p><strong>Место рождения</strong>: {{ object.fatherland }}</p>
+    <p><strong>Описание</strong>: {{ object.description|safe }}</p>
+
+    {% if request.role == object or request.user.is_superuser %}
+        <p><strong>Скелет в шкафу</strong>: {{ object.secret|safe }}</p>
+        <p><strong>Судимость</strong>: {{ object.conviction|safe }}</p>
+        <p><strong>Квента</strong>: {{ object.quest|safe }}</p>
+    {% endif %}
+
+    {% if object.face %}
+        <p><strong>Фас</strong>:<br><img src="{{ object.face.src_300 }}"></p>
+    {% endif %}
+    {% if object.halfface %}
+        <p><strong>Профиль</strong>:<br><img src="{{ object.halfface.src_300 }}"></p>
+    {% endif %}
+{% endblock %}

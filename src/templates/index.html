@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticpages %}
+{% load ulogin_tags %}
+{% load staticfiles %}
+
+{% block content %}
+    <img src="{% static "rpg/i/subtitle.png" %}" style="margin: 10px 0 40px 200px;"><br>
+
+    <div class="b-login">
+        {% if request.user.is_authenticated %}
+            Привет, <a href="{% url "cabinet" %}">{{ request.user.first_name|default:"незнакомец" }}</a>
+            <small>(<a href="{% url "logout" %}?next=/">выйти</a>)</small><br>
+            {% if request.role %}
+                Ваш персонаж: <a href="{% url "role" request.role.id %}"><strong>{{ request.role.name }}</strong></a>
+            {% else %}
+                <a href="{% url "request" %}">Выбрать персонаж</a>
+            {% endif %}
+            <br>
+            <a href="{% url "bus" %}">Записаться на автобус</a>
+        {% else %}
+            <table><tr><td>Зарегистрироваться: &nbsp;</td><td>{% ulogin_widget %}</td></tr></table>
+        {% endif %}
+    </div>
+
+    {% content "Главная" %}
+{% endblock %}

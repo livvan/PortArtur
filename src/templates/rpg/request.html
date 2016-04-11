@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Выбор персонажа</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Выбрать роль">
+    </form>
+
+    <p>Если вас не заинтересовала ни одна из ролей, вы можете <a href="{% url "request_new" %}">создать новую</a>.</p>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Игроки</h1>
+
+    <table class="roles">
+        <tr>
+            <th>Игрок</th>
+            <th>Взнос</th>
+            <th>Оплачено</th>
+            <th>Осталось</th>
+        </tr>
+
+        {% for user in users %}
+            <tr class="{% cycle 'tr_odd' 'tr_even' %}">
+                <td><a href="/admin/gorod/userinfo/{{ user.userinfo.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
+                <td>{{ user.userinfo.cost }}</td>
+                <td>{{ user.userinfo.payment }}</td>
+                <td>{{ user.userinfo.debt }}</td>
+            </tr>
+        {% endfor %}
+
+        <tr style="border-top: 2px solid #000000">
+            <td>Итого</td>
+            <td>{{ total.cost }}</td>
+            <td>{{ total.payment }}</td>
+            <td>{{ total.debt }}</td>
+        </tr>
+    </table>
+{% endblock %}

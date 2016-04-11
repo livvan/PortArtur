@@ -1,0 +1,22 @@
+# production
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '%(DATABASE_HOST)s',
+        'NAME': '%(DATABASE_DB)s',
+        'USER': '%(DATABASE_USER)s',
+        'PASSWORD': '%(DATABASE_PASSWORD)s',
+    }
+}
+
+SECRET_KEY = '%(DJANGO_SECRET_KEY)s'
+
+YAFOTKI_STORAGE_OPTIONS = {
+    'username': '%(YAFOTKI_ACCOUNT_NAME)s',
+    'token': '%(YAFOTKI_TOKEN)s',
+    'album': 'port',
+}
+                  
+DUMP_ACCOUNT_NAME = '%(DUMP_ACCOUNT_NAME)s'
+DUMP_PASSWORD = '%(DUMP_PASSWORD)s'

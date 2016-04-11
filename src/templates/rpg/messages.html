@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Личные сообщения</h1>
+
+    {% if recipients %}
+        <ul>
+            {% for recipient_id, role, unreaded in recipients %}
+                <li><a href="{% url "messages_history" recipient_id %}">{{ role }}</a>
+                    {% if unreaded > 0 %} (<strong>{{ unreaded }}</strong>){% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h3>Поиск по имени</h3>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ message }}
+        <input type="text" name="recipient">
+        <input type="submit" value="Найти">
+    </form>
+{% endblock %}

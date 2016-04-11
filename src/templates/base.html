@@ -1,0 +1,57 @@
+{% load staticfiles %}<!DOCTYPE html>
+<html>
+<head>
+    <title>Город Н</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <link href="{% static "rpg/style.css" %}" rel="stylesheet" type="text/css">
+
+    {% block extrahead %}{% endblock %}
+
+    <link rel="stylesheet" href="{% static "rpg/style.css" %}"/>
+</head>
+<body>
+    <div class="b-container">
+        <table class="b-frame">
+            <tr>
+                <td class="b-frame-left"></td>
+                <td class="b-frame-center">
+                    <a href="/"><img src="{% static "rpg/i/title.png" %}" style="margin: 30px 0 10px 15px;"></a><br>
+
+                    {% block page_header %}
+                    {% endblock %}
+
+                    {% block content %}{% endblock %}
+
+                </td>
+                <td class="b-frame-right" style="position: relative;">
+                    <img src="{% static "rpg/i/right-menu.png" %}" style="position: relative; left: -170px; margin: 0">
+
+                    <div class="navigation">
+                        <a href="{% url "article" 1 %}">Орг инфо</a><br><br>
+                        <a href="{% url "site_news" %}">Новости</a><br><br>
+                        <a href="{% url "roles" %}">Список<br>ролей</a><br><br>
+                        {% if request.user.is_authenticated and not request.role %}
+                            <a href="{% url "request" %}">Заявка</a><br><br>
+                        {% endif %}
+                        {% if request.role %}
+                            <a href="{% url "messages_index" %}">Почта</a> ({{ fresh_mail_amount }})<br><br>
+                        {% endif %}
+                        <a href="{% url "article" 3 %}">Правила</a><br><br><br><br>
+                        <a href="{% url "article" 12 %}">Тексты<br>к игре</a><br><br>
+
+                        {% if request.user.is_superuser %}
+                            <a href="{% url "report_overview" %}">Игроки</a><br>
+                            <a href="{% url "report_connections_diagram" %}">Ёж</a><br>
+                            <a href="{% url "report_money" %}">Оплата</a><br>
+                            <a href="{% url "report_bus" %}">Автобус</a><br>
+                            <a href="{% url "report_full" %}">Печать</a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

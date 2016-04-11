@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ recipient.name }} - переписка</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ message }}<br>
+        <textarea cols="60" rows="5" name="message"></textarea><br>
+        <input type="submit" value="Отправить">
+    </form>
+
+    <br>
+
+    {% if history %}
+        <table>
+            {% for message in history %}
+                <tr>
+                    <td style="white-space: nowrap; padding-right: 5px;">{{ message.sender.name }}:</td>
+                    <td style="width: 100%">{{ message.content }}</td>
+                    <td style="white-space: nowrap;">{{ message.created|date:"Y-m-d H:i" }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if more %}
+        <p><a href="{% url "messages_full_history" recipient.id %}">Вся переписка</a>.</p>
+    {% endif %}
+
+    {% if full %}
+        <p><a href="{% url "messages_history" recipient.id %}">Свежие сообщения</a>.</p>
+    {% endif %}
+{% endblock %}

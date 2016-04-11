@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Автобус</h1>
+
+    <h2>Туда</h2>
+    <table class="roles">
+        <tr>
+            <th>Игрок</th>
+            <th>Телефон</th>
+        </tr>
+
+        {% for user in users %}
+            {% if user.userinfo.bus %}
+                <tr class="{% cycle 'tr_odd' 'tr_even' %}">
+                    <td><a href="/admin/gorod/userinfo/{{ user.userinfo.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
+                    <td>{{ user.userinfo.phone }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+        <tr style="border-top: 2px solid #000000">
+            <td>Итого</td>
+            <td>{{ total }}</td>
+        </tr>
+    </table>
+
+    <h2>Обратно</h2>
+    <table class="roles">
+        <tr>
+            <th>Игрок</th>
+            <th>Телефон</th>
+        </tr>
+
+        {% for user in users %}
+            {% if user.userinfo.bus_back %}
+                <tr class="{% cycle 'tr_odd' 'tr_even' %}">
+                    <td><a href="/admin/gorod/userinfo/{{ user.userinfo.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
+                    <td>{{ user.userinfo.phone }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+
+        <tr style="border-top: 2px solid #000000">
+            <td>Итого</td>
+            <td>{{ total_back }}</td>
+        </tr>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ object.title }}</h1>
+
+    <ul>
+        {% for article in object.article_set.all %}
+            {% ifequal article.title '---' %}
+                <div style="width: 300px; "><hr></div>
+            {% else %}
+                <li><a href="{% if article.url %}{{ article.url }}{% else %}{% url 'article' article.id %}{% endif %}">{{ article.title }}</a></li>
+            {% endifequal %}
+        {% endfor %}
+    </ul>
+
+	<p>{{ object.content|safe }}</p>
+{% endblock %}

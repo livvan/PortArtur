@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <h1>Роли</h1>
+
+    <table class="roles">
+        {% for role in object_list %}
+            <tr class="{% cycle 'tr_odd' 'tr_even' %}">
+                <td><a href="{% url "role" role.id %}">{{ role.name }}</a>
+                    {% if request.role %}<a href="{% url "messages_history" role.id %}"><img src="{% static "rpg/i/email.png" %}"></a>
+                    {% endif %}</td>
+                <td>{{ role.work|default:"" }}</td>
+                <td>{% if role.user %}{{ role.user }}{% else %}-{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% if request.user.is_superuser %}
+        <p>
+            Ролей: {{ total }}, из них занято: {{ occupied }}.
+        </p>
+    {% endif %}
+{% endblock %}

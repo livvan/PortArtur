@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load staticpages %}
+{% load ulogin_tags %}
+{% load staticfiles %}
+
+{% block content %}
+    <h1>Запись на автобус</h1>
+
+    <p>Выезд в четверг, 15 октября в 19*00 от ЖД вокзала.</p>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Сохранить">
+    </form>
+
+
+{% endblock %}

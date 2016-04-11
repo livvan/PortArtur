@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Игроки</h1>
+
+    <table class="roles">
+        <tr>
+            <th>Игрок</th>
+            <th>Ник</th>
+            <th>Телефон</th>
+            <th>Email</th>
+            <th>Город</th>
+            <th>Роль</th>
+        </tr>
+
+        {% for user in users %}
+            <tr class="{% cycle 'tr_odd' 'tr_even' %}">
+                <td>{{ user.last_name }} {{ user.first_name }}</td>
+                <td>{{ user.userinfo.nick }}</td>
+                <td>{{ user.userinfo.phone }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.userinfo.city }}</td>
+                <td>{% if user.role %}<a href="/admin/gorod/role/{{ user.role.id }}/">{{ user.role }}</a>
+                    {% else %}-{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
