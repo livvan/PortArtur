@@ -1,10 +1,10 @@
 django-wysiwyg-redactor==0.4.9
-Django==1.9.4
+Django==1.9.5
 django_yafotki==0.7.3
 easywebdav==1.2.0
-gunicorn==19.3.0
+gunicorn==19.4.5
 logging==0.4.9.6
 MySQL-python==1.2.5
-Pillow==3.0.0
+Pillow==3.2.0
 pytils==0.3
-simplejson==3.8.0
+simplejson==3.8.2
