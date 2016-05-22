@@ -22,4 +22,3 @@ class RoleConnectionAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Role, RoleAdmin)
 admin.site.register(models.RoleConnection, RoleConnectionAdmin)
-

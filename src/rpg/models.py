@@ -56,7 +56,8 @@ class Role(models.Model):
                 header = 'измененные поля роли %s' % self.name
                 for field in self._meta.fields:
                     if getattr(self, field.name) != getattr(prev, field.name):
-                        report += '%s: "%s" -> "%s"\n' % (field.verbose_name, getattr(prev, field.name) or '-', getattr(self, field.name) or '-')
+                        report += '%s: "%s" -> "%s"\n' % (field.verbose_name, getattr(prev, field.name) or '-',
+                                                          getattr(self, field.name) or '-')
             else:
                 header = 'новая роль %s:' % self.name
                 for field in self._meta.fields:
@@ -83,7 +84,8 @@ class Role(models.Model):
 
 class RoleConnection(models.Model):
     role = models.ForeignKey(Role, verbose_name='Роль', related_name='connections')
-    role_rel = models.ForeignKey(Role, verbose_name='Связанная роль', related_name='rel_connections', null=True, blank=True)
+    role_rel = models.ForeignKey(Role, verbose_name='Связанная роль',
+                                 related_name='rel_connections', null=True, blank=True)
     comment = models.TextField(verbose_name='Описание', null=True, blank=True, default=None)
     is_locked = models.BooleanField(verbose_name='Заморожено', default=False)
 
@@ -97,7 +99,8 @@ class RoleConnection(models.Model):
             if getattr(self, 'comment') != getattr(prev, 'comment'):
                 report = \
                     'Анкета: http://%s/role/%s/relations\n\nИзмененная связь: %s -> %s:\nБыло: %s\nСтало: "%s"' %\
-                    (settings.DOMAIN, self.role_id, self.role, self.role_rel, getattr(prev, 'comment') or '-', getattr(self, 'comment') or '-')
+                    (settings.DOMAIN, self.role_id, self.role, self.role_rel,
+                     getattr(prev, 'comment') or '-', getattr(self, 'comment') or '-')
 
                 send_mail(
                     'ПортАртур: изменения в связях роли %s' % self.role,

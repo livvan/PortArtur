@@ -20,7 +20,6 @@ class CabinetForm(forms.Form):
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        self.userinfo = UserInfo.objects.get(user=user)
         super(CabinetForm, self).__init__(*args, **kwargs)
 
         self.initial['name'] = user.first_name
@@ -52,7 +51,6 @@ class BusForm(forms.Form):
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        self.userinfo = UserInfo.objects.get(user=user)
         super(BusForm, self).__init__(*args, **kwargs)
 
         self.initial['bus'] = self.userinfo.bus

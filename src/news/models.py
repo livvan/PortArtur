@@ -7,7 +7,8 @@ class News(models.Model):
     content = models.TextField(verbose_name='Содержание')
     dt = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
-    def __unicode__(self): return self.content
+    def __unicode__(self):
+        return self.content
 
     class Meta:
         verbose_name = 'Админская новость'

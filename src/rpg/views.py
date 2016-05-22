@@ -93,6 +93,7 @@ class RoleEditView(UpdateView):
 class RoleRelationsView(TemplateView):
     """Редактирование связей роли"""
     template_name = 'rpg/role_relations_edit.html'
+
     def dispatch(self, request, *args, **kwargs):
         self.object = get_object_or_404(models.Role, pk=kwargs['pk'])
 

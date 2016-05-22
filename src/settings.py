@@ -14,8 +14,8 @@ import os
 BASE_DIR = os.path.dirname(__file__)
 
 SECRET_KEY = '$osaxn9739un(n#9NDnu(#nd(UNDISNU32IO18h'
-ALLOWED_HOSTS = ['portartur.su']
-DOMAIN = 'portartur.su'
+ALLOWED_HOSTS = ['port-artur.com.ru']
+DOMAIN = 'port-artur.com.ru'
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'senni@mail.ru'
 ADMINS = (('Glader', 'glader.ru@gmail.com'),)
