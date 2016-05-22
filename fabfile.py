@@ -123,29 +123,16 @@ def upstart():
     run('cp %s/tools/upstart/port.conf /etc/init/port.conf' % env.directory[env.env_type], shell=False)
 
 
-def dump():
-    with cd(env.directory[env.env_type]):
-        tmp_filename = run("date +/tmp/port_backup_%Y%m%d_%H%M.sql.gz")
-        month_dir = date.today().strftime("%Y_%m")
-        backup_dir = "Backup/db/%s" % month_dir
-        webdav_command =\
-            "import easywebdav;"\
-            "webdav = easywebdav.connect('webdav.yandex.ru', username='glader.dump', password='%s', protocol='https');"\
-            "webdav.mkdirs('%s');"\
-            "webdav.upload('%s', '%s/%s');" % (DUMP_PASSWORD, backup_dir, tmp_filename, backup_dir, tmp_filename.split('/')[-1])
-
-        run("mysqldump -u %(DATABASE_USER)s -p%(DATABASE_PASSWORD)s -h %(DATABASE_HOST)s %(DATABASE_DB)s | gzip > " % globals() + tmp_filename)
-        virtualenv('python -c "%s"' % webdav_command)
-        run("rm %s" % tmp_filename)
-
-
 def manage_py(command):
     manage_dir = env.manage_dir % env.directory[env.env_type]
     virtualenv('cd %s && python manage.py %s' % (manage_dir, command))
 
 
+def dump():
+    manage_py('make_dump')
+
+
 def migrate():
-    manage_py('syncdb')
     manage_py('migrate')
 
 
