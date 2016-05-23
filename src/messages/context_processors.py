@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from rpg.models import Message
+from messages.models import Message
 
 
 def fresh_mail_amount(request):

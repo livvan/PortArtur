@@ -7,13 +7,13 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^articles/', include('staticpages.urls')),
-    url(r'^news/', include('news.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^articles/', include('staticpages.urls')),
     url(r'^auth/', include('django.contrib.auth.urls')),
-    url(r'^redactor/', include('redactor.urls')),
     url(r'^bus/', include('bus.urls', namespace='bus')),
     url(r'^messages/', include('messages.urls', namespace='messages')),
+    url(r'^news/', include('news.urls', namespace='news')),
+    url(r'^redactor/', include('redactor.urls')),
     url(r'^', include('rpg.urls')),
 ]
 
