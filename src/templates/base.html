@@ -39,6 +39,10 @@
             background: url('{% static "rpg/i/back-center.jpg" %}') repeat-y;
         }
 
+        .form_table td {
+            padding-bottom: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -50,7 +54,12 @@
                 <tr>
                     <td style="width: 200px; border-right: 5px solid #052453; padding-top: 10px; padding-left: 20px;">
                         <ul style="font-size: 120%;  list-style: none">
-                            <li>Регистрация</li>
+                            <li>
+                                {% if request.user.is_authenticated %}
+                                    Привет, <a href="{% url "users:cabinet" %}">{{ request.user.first_name|default:"незнакомец" }}</a>
+                                {% else %}
+                                    <a href="{% url "users:login" %}">Войти</a>
+                                {% endif %}
                             <li><a href="{% url "article" 2 %}">Орг инфо</a></li>
                             <li><a href="{% url "news:news" %}">Новости</a></li>
                         </ul>

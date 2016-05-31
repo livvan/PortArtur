@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'news',
     'rpg',
     'staticpages',
+    'users',
 )
 
 
@@ -69,6 +70,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rpg.middleware.GetUserRole',
+    'users.middleware.GetUserProfile',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

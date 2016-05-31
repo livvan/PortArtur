@@ -1,11 +1,10 @@
 # coding: utf-8
 from __future__ import unicode_literals
 from django.conf.urls import url
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import DetailView
 from rpg import views, models
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url(r'^request$', views.RequestView.as_view(), name='request'),
     url(r'^request/new$', views.RequestNewView.as_view(), name='request_new'),
 

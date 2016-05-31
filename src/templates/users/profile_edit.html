@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load roles %}
+
+{% block content %}
+    <h1>{{ request.user.first_name|default:"незнакомец" }}: кабинет
+        <small>(<a href="{% role_link %}">моя роль</a>, <a href="{% url "logout" %}?next=/">выйти</a>)</small></h1>
+
+    <table class="form_table">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <tr><td colspan="2"><input type="submit" value="Сохранить"></td></tr>
+        </form>
+    </table>
+{% endblock %}

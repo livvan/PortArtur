@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Вход на сайт</h1>
+
+    <p>Если вы еще не регистрировались здесь, перейдите на <a href="{% url "users:registration" %}">страницу регистрации</a>.</p>
+
+    <p>Введите свой email и пароль</p>
+    <table>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <tr><td colspan="2"><input type="submit" value="Войти"></td></tr>
+        </form>
+    </table>
+    <p>Забыли пароль к почте? Восстановить можно <a href="/auth/password_reset/">здесь</a>.</p>
+{% endblock %}
