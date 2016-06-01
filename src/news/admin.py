@@ -7,6 +7,7 @@ from django.core.mail import EmailMessage
 from news import models
 
 
+@admin.register(models.News)
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('content',)
     actions = ['notify']
@@ -33,6 +34,3 @@ def send_html_mail(subject, message, recipient_list):
 
     except Exception:
         pass
-
-
-admin.site.register(models.News, NewsAdmin)

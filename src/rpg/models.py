@@ -5,7 +5,6 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db import models
-from yafotki.fields import YFField
 from redactor.fields import RedactorField
 
 ALBUM = getattr(settings, 'YAFOTKI_ALBUM', 'default')
@@ -14,39 +13,46 @@ AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 class Role(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name='Пользователь', null=True, blank=True, default=None)
-    name = models.CharField(verbose_name='Фамилия Имя', max_length=255)
-    year = models.IntegerField(verbose_name='Год рождения')
-    fatherland = models.CharField(verbose_name='Место рождения', max_length=255)
+    last_name = models.CharField(verbose_name='Фамилия', max_length=255)
+    first_name = models.CharField(verbose_name='Имя', max_length=255)
+    middle_name = models.CharField(verbose_name='Отчество', max_length=255)
+    age = models.IntegerField(verbose_name='Возраст')
+    title = models.CharField(verbose_name='Титул/звание', max_length=255)
+    position = models.CharField(verbose_name='Должность', max_length=255)
+    FAMILY_STATES = (
+        ('married', 'женат/замужем'),
+        ('date', 'есть сердечный друг'),
+        ('widower', 'вдовец/вдова'),
+        ('alone', 'сердечной привязанности нет'),
+        ('none', 'все сложно'),
+    )
+    family_state = models.CharField(verbose_name='Семейное положение', max_length=255, choices=FAMILY_STATES)
     description = RedactorField(verbose_name='Общеизвестная информация')
-    secret = RedactorField(verbose_name='Скелет в шкафу')
-    work = models.CharField(verbose_name='Место работы', max_length=255, null=True, blank=True, default=None)
-    conviction = RedactorField(verbose_name='Судимость', null=True, blank=True, default=None)
+    party = models.CharField(verbose_name='Партия', max_length=255, null=True, blank=True, default=None,
+                             choices=(('war', 'Партия войны'), ('peace', 'Партия мира')))
+    military = models.CharField(verbose_name='Военный', max_length=255, null=True, blank=True, default=None,
+                                choices=(('army', 'Армия'), ('navy', 'Флот')))
+    character_1 = models.CharField(verbose_name='Макарев / Стессель',
+                                   max_length=255, null=True, blank=True, default=None,
+                                   choices=(('1', 'Макарев'), ('2', 'Стессель')))
+    character_2 = models.CharField(verbose_name='Вор / честный', max_length=255, null=True, blank=True, default=None,
+                                   choices=(('1', 'Вор'), ('2', 'честный')))
+    character_3 = models.CharField(verbose_name='Англофилы / русофобы',
+                                   max_length=255, null=True, blank=True, default=None,
+                                   choices=(('1', 'Англофилы'), ('2', 'русофобы')))
+    character_4 = models.CharField(verbose_name='Революционеры/монархисты',
+                                   max_length=255, null=True, blank=True, default=None,
+                                   choices=(('1', 'Революционеры'), ('2', 'монархисты')))
+    character_5 = models.CharField(verbose_name='Россия/Япония',
+                                   max_length=255, null=True, blank=True, default=None,
+                                   choices=(('1', 'Россия'), ('2', 'Япония')))
     quest = RedactorField(verbose_name='Квента')
-    face = YFField(verbose_name='Фото в фас', upload_to=ALBUM, null=True, blank=True, default=None)
-    halfface = YFField(verbose_name='Фото в профиль', upload_to=ALBUM, null=True, blank=True, default=None)
-    is_locked = models.BooleanField(verbose_name='Заморожена', default=False,
-                                    help_text='Можно ли человеку редактировать роль')
 
     def __unicode__(self):
-        return self.name
+        return "%s %s" % (self.last_name, self.first_name)
 
     def get_absolute_url(self):
-        return reverse('role', args=[self.pk])
-
-    def username(self):
-        if not self.user:
-            return '-'
-
-        userinfo = self.get_userinfo()
-        name = '%s %s' % (self.user.last_name, self.user.first_name)
-        if userinfo.nick:
-            name += ' (%s)' % userinfo.nick
-        return name
-    username.short_description = 'Игрок'
-
-    def role_name(self):
-        return self.name
-    role_name.short_description = 'Персонаж'
+        return reverse('rpg:role', args=[self.pk])
 
     def save(self, check_diff=True, *args, **kwargs):
         if check_diff:

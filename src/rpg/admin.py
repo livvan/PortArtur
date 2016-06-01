@@ -11,14 +11,12 @@ class RoleConnectionInline(admin.TabularInline):
     extra = 0
 
 
+@admin.register(models.Role)
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('username', 'role_name')
+    list_display = ('user', 'last_name', 'first_name')
     inlines = (RoleConnectionInline,)
 
 
+@admin.register(models.RoleConnection)
 class RoleConnectionAdmin(admin.ModelAdmin):
     list_display = ('role', 'role_rel')
-
-
-admin.site.register(models.Role, RoleAdmin)
-admin.site.register(models.RoleConnection, RoleConnectionAdmin)
