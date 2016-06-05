@@ -10,6 +10,7 @@ urlpatterns = [
 
     url(r'^roles', views.RolesView.as_view(), name='roles'),
     url(r'^role/(?P<pk>\d+)$', DetailView.as_view(model=models.Role), name='role'),
+    url(r'^role/(?P<pk>\d+)/take$', views.RoleTakeView.as_view(), name='role_take'),
     url(r'^role/(?P<pk>\d+)/edit$', views.RoleEditView.as_view(), name='role_edit'),
     url(r'^role/(?P<pk>\d+)/relations$', views.RoleRelationsView.as_view(), name='role_relations'),
 

@@ -10,7 +10,14 @@
                 <td><a href="{% url "rpg:role" role.id %}">{{ role }}</a>
                     {% if request.role %}<a href="{% url "messages:talk" role.id %}"><img src="{% static "rpg/i/email.png" %}"></a>
                     {% endif %}</td>
-                <td>{% if role.user %}{{ role.user }}{% else %}-{% endif %}</td>
+                <td>{% if role.user %}
+                    {{ role.user }}
+                {% else %}
+                    {% if request.role %}-
+                        {% else %}
+                        <a href="{% url "rpg:role_take" role.id %}" onclick="return confirm('Вы уверены, что хотите занять эту роль?')">занять</a>
+                    {% endif %}
+                {% endif %}</td>
             </tr>
         {% endfor %}
     </table>

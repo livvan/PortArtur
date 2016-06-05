@@ -15,6 +15,7 @@ class RoleConnectionInline(admin.TabularInline):
 class RoleAdmin(admin.ModelAdmin):
     list_display = ('user', 'last_name', 'first_name')
     inlines = (RoleConnectionInline,)
+    list_filter = ('character_1', 'character_2', 'character_3', 'character_4', 'character_5', )
 
 
 @admin.register(models.RoleConnection)

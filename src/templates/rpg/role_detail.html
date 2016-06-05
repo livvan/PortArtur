@@ -12,11 +12,13 @@
     <p><strong>Титул/Звание</strong>: {{ object.title }}</p>
     <p><strong>Должность</strong>: {{ object.position }}</p>
     <p><strong>Семейное положение</strong>: {{ object.family_state }}</p>
-    <p><strong>Общеизвестная информация</strong>: {{ object.description }}</p>
-    <p><strong>Партия</strong>: {{ object.party|default_if_none:"-" }}</p>
-    <p><strong>Военный</strong>: {{ object.military|default_if_none:"-" }}</p>
+    <p><strong>Общеизвестная информация</strong>: {{ object.description|safe }}</p>
 
     {% if request.role == object or request.user.is_superuser %}
+        <br>
+        <p>Приватная информация:</p>
+        <p><strong>Партия</strong>: {{ object.party|default_if_none:"-" }}</p>
+        <p><strong>Военный</strong>: {{ object.military|default_if_none:"-" }}</p>
         <p><strong>Макарев / Стессель</strong>: {{ object.character_1|default_if_none:"-" }}</p>
         <p><strong>Вор / честный</strong>: {{ object.character_2|default_if_none:"-" }}</p>
         <p><strong>Англофилы / русофобы</strong>: {{ object.character_3|default_if_none:"-" }}</p>

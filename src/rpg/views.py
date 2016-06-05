@@ -56,6 +56,27 @@ class RolesView(ListView):
 
 
 @class_view_decorator(login_required)
+class RoleTakeView(UpdateView):
+    """Занятие роли"""
+    template_name = 'error.html'
+    form_class = forms.RoleForm
+    object = None
+    queryset = models.Role.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        role = get_object_or_404(models.Role, pk=kwargs['pk'])
+        if role.user:
+            return self.render_to_response({'message': 'Эта роль уже занята.'})
+
+        if request.role:
+            return self.render_to_response({'message': 'У вас уже есть роль. Попросите мастера снять ее с вас.'})
+
+        role.user = request.user
+        role.save()
+        return HttpResponseRedirect(reverse('rpg:role', args=[role.pk]))
+
+
+@class_view_decorator(login_required)
 class RoleEditView(UpdateView):
     """Редактирование роли"""
     template_name = 'rpg/role_edit.html'
