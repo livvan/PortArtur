@@ -16,10 +16,10 @@
         {% for user in users %}
             <tr class="{% cycle 'tr_odd' 'tr_even' %}">
                 <td>{{ user.last_name }} {{ user.first_name }}</td>
-                <td>{{ user.userinfo.nick }}</td>
-                <td>{{ user.userinfo.phone }}</td>
+                <td>{{ user.profile.nick }}</td>
+                <td>{{ user.profile.phone }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.userinfo.city }}</td>
+                <td>{{ user.profile.city }}</td>
                 <td>{% if user.role %}<a href="/admin/gorod/role/{{ user.role.id }}/">{{ user.role }}</a>
                     {% else %}-{% endif %}</td>
             </tr>

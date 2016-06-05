@@ -59,13 +59,13 @@ class Role(models.Model):
             report = ''
             if self.pk:
                 prev = self.__class__.objects.get(pk=self.pk)
-                header = 'измененные поля роли %s' % self.name
+                header = 'измененные поля роли %s' % self
                 for field in self._meta.fields:
                     if getattr(self, field.name) != getattr(prev, field.name):
                         report += '%s: "%s" -> "%s"\n' % (field.verbose_name, getattr(prev, field.name) or '-',
                                                           getattr(self, field.name) or '-')
             else:
-                header = 'новая роль %s:' % self.name
+                header = 'новая роль %s:' % self
                 for field in self._meta.fields:
                     report += '%s: "%s"\n' % (field.verbose_name, getattr(self, field.name) or '-')
 

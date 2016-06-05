@@ -12,6 +12,7 @@ from django.views.generic import ListView, TemplateView, FormView, UpdateView, C
 from rpg import forms
 from rpg import models
 from rpg.decorators import class_view_decorator, superuser_required, profile_required, no_role_required
+from users.models import Profile
 
 
 @class_view_decorator(login_required)
@@ -45,7 +46,7 @@ class RequestNewView(CreateView):
 
 
 class RolesView(ListView):
-    queryset = models.Role.objects.all().order_by('name')
+    queryset = models.Role.objects.all().order_by('last_name')
 
     def get_context_data(self, **kwargs):
         context = super(RolesView, self).get_context_data(**kwargs)
@@ -71,22 +72,16 @@ class RoleEditView(UpdateView):
         raise Http404
 
     def get(self, request, *args, **kwargs):
-        if self.object.is_locked:
-            form = None
-        else:
-            form_class = self.get_form_class()
-            form = self.get_form(form_class)
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
 
         return self.render_to_response(self.get_context_data(form=form, role=self.object))
 
     def post(self, request, *args, **kwargs):
-        if self.object.is_locked:
-            raise Http404
-
         return super(RoleEditView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('role', args=[self.object.pk])
+        return reverse('rpg:role', args=[self.object.pk])
 
 
 @class_view_decorator(login_required)
@@ -131,8 +126,8 @@ class OverviewReport(TemplateView):
 
         users = get_user_model().objects.all()
         for user in users:
-            if models.UserInfo.objects.filter(user=user).count():
-                user.userinfo = models.UserInfo.objects.get(user=user)
+            if Profile.objects.filter(user=user).count():
+                user.profile = Profile.objects.get(user=user)
             if models.Role.objects.filter(user=user).count():
                 user.role = models.Role.objects.get(user=user)
         context['users'] = users
@@ -149,13 +144,13 @@ class ReportConnectionsData(TemplateView):
     template_name = 'rpg/reports/connections_diagram.html'
 
     def get(self, request, **kwargs):
-        roles = models.Role.objects.all().order_by('name')
+        roles = models.Role.objects.all().order_by('last_name')
         result = []
 
         for role in roles:
             result.append({
                 'name': str(role.pk),
-                'full_name': role.name,
+                'full_name': unicode(role),
                 'link': role.get_absolute_url(),
                 'imports': [
                     str(connection.role_rel.pk)
@@ -179,12 +174,12 @@ class MoneyReport(TemplateView):
             'debt': 0,
         }
         for user in context['users']:
-            user.userinfo, _ = models.UserInfo.objects.get_or_create(user=user)
-            user.userinfo.debt = user.userinfo.cost - user.userinfo.payment
+            user.profile, _ = Profile.objects.get_or_create(user=user)
+            user.profile.debt = user.profile.cost - user.profile.payment
 
-            context['total']['cost'] += user.userinfo.cost
-            context['total']['payment'] += user.userinfo.payment
-            context['total']['debt'] += user.userinfo.debt
+            context['total']['cost'] += user.profile.cost
+            context['total']['payment'] += user.profile.payment
+            context['total']['debt'] += user.profile.debt
 
         return context
 
@@ -199,10 +194,10 @@ class BusReport(TemplateView):
         context['total'] = 0
         context['total_back'] = 0
         for user in context['users']:
-            user.userinfo, _ = models.UserInfo.objects.get_or_create(user=user)
+            user.profile, _ = Profile.objects.get_or_create(user=user)
 
-            context['total'] += int(user.userinfo.bus)
-            context['total_back'] += int(user.userinfo.bus_back)
+            context['total'] += int(user.profile.bus)
+            context['total_back'] += int(user.profile.bus_back)
         return context
 
 

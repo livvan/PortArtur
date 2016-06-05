@@ -13,10 +13,10 @@
 
         {% for user in users %}
             <tr class="{% cycle 'tr_odd' 'tr_even' %}">
-                <td><a href="/admin/gorod/userinfo/{{ user.userinfo.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
-                <td>{{ user.userinfo.cost }}</td>
-                <td>{{ user.userinfo.payment }}</td>
-                <td>{{ user.userinfo.debt }}</td>
+                <td><a href="/admin/users/profile/{{ user.profile.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
+                <td>{{ user.profile.cost }}</td>
+                <td>{{ user.profile.payment }}</td>
+                <td>{{ user.profile.debt }}</td>
             </tr>
         {% endfor %}
 

@@ -63,7 +63,7 @@ class CabinetForm(forms.Form):
         self.profile.med = self.cleaned_data['med']
         self.profile.wishes = self.cleaned_data['wishes']
         self.profile.hates = self.cleaned_data['hates']
-        self.userinfo.save()
+        self.profile.save()
 
 
 class RegistrationForm(forms.Form):

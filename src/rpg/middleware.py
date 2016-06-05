@@ -12,7 +12,6 @@ class GetUserRole:
         if request.user.is_authenticated():
             try:
                 request.role = Role.objects.get(user=request.user)
-                request.role_locked = request.role.is_locked
 
             except Role.DoesNotExist:
                 pass

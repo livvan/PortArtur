@@ -11,6 +11,6 @@ register = template.Library()
 @register.filter
 def nick(user):
     try:
-        return models.UserInfo.objects.get(user=user).nick or u'??'
-    except models.UserInfo.DoesNotExist:
+        return models.Profile.objects.get(user=user).nick or u'??'
+    except models.Profile.DoesNotExist:
         return '??'

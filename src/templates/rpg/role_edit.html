@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Редактирование роли (<a href="{% url "role_relations" object.id %}">связи</a>)</h1>
+    <h1>Редактирование роли (<a href="{% url "rpg:role_relations" object.id %}">связи</a>)</h1>
 
     {% if form.errors %}
         <p class="errorlist">Исправьте ошибки в форме ниже</p>
@@ -15,7 +15,9 @@
 
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Сохранить">
+        <table>
+            {{ form }}
+            <tr><td colspan="2"><input type="submit" value="Сохранить"></td></tr>
+        </table>
     </form>
 {% endblock %}

@@ -7,7 +7,7 @@ from users import models
 
 
 @admin.register(models.Profile)
-class UserInfoAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'nick')
     ordering = ('user',)
     raw_id_fields = ('user',)

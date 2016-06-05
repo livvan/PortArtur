@@ -11,10 +11,10 @@
         </tr>
 
         {% for user in users %}
-            {% if user.userinfo.bus %}
+            {% if user.profile.bus %}
                 <tr class="{% cycle 'tr_odd' 'tr_even' %}">
-                    <td><a href="/admin/gorod/userinfo/{{ user.userinfo.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
-                    <td>{{ user.userinfo.phone }}</td>
+                    <td><a href="/admin/users/profile/{{ user.profile.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
+                    <td>{{ user.profile.phone }}</td>
                 </tr>
             {% endif %}
         {% endfor %}
@@ -33,10 +33,10 @@
         </tr>
 
         {% for user in users %}
-            {% if user.userinfo.bus_back %}
+            {% if user.profile.bus_back %}
                 <tr class="{% cycle 'tr_odd' 'tr_even' %}">
-                    <td><a href="/admin/gorod/userinfo/{{ user.userinfo.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
-                    <td>{{ user.userinfo.phone }}</td>
+                    <td><a href="/admin/users/profile/{{ user.profile.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
+                    <td>{{ user.profile.phone }}</td>
                 </tr>
             {% endif %}
         {% endfor %}

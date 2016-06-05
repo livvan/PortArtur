@@ -4,7 +4,7 @@ from django.http.response import HttpResponse, Http404
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 
-from rpg import models
+from users.models import Profile
 
 
 def class_view_decorator(function_decorator):
@@ -26,9 +26,9 @@ def profile_required(f):
     def wrapper(request, *args, **kwargs):
         is_filled = bool(request.user.email)
 
-        userinfo = models.UserInfo.objects.get(user=request.user)
+        profile = Profile.objects.get(user=request.user)
         for field in ('nick', 'age', 'phone', 'city', 'med'):
-            if not getattr(userinfo, field, None):
+            if not getattr(profile, field, None):
                 is_filled = False
 
         if not is_filled:

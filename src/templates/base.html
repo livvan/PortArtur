@@ -57,11 +57,16 @@
                             <li>
                                 {% if request.user.is_authenticated %}
                                     Привет, <a href="{% url "users:cabinet" %}">{{ request.user.first_name|default:"незнакомец" }}</a>
+                                    {% if request.role %}
+                                        <br><a href="{% url "rpg:role" request.role.id %}">{{ request.role }}</a>
+                                    {% endif %}
                                 {% else %}
                                     <a href="{% url "users:login" %}">Войти</a>
                                 {% endif %}
+                            <li>&nbsp;</li>
                             <li><a href="{% url "article" 2 %}">Орг инфо</a></li>
                             <li><a href="{% url "news:news" %}">Новости</a></li>
+                            <li><a href="{% url "rpg:roles" %}">Роли</a></li>
                         </ul>
                     </td>
 

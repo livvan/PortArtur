@@ -1,26 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ object.name }}
+    <h1>{{ object }}
         {% if request.role == object or request.user.is_superuser %}
-            (<a href="{% url "role_edit" object.id %}">редактировать</a>)
+            (<a href="{% url "rpg:role_edit" object.id %}">редактировать</a>)
         {% endif %}
     </h1>
 
-    <p><strong>Год рождения</strong>: {{ object.year }}</p>
-    <p><strong>Место рождения</strong>: {{ object.fatherland }}</p>
-    <p><strong>Описание</strong>: {{ object.description|safe }}</p>
+    <p><strong>Полное имя</strong>: {{ object.first_name }} {{ object.middle_name }} {{ object.last_name }}</p>
+    <p><strong>Возраст</strong>: {{ object.age }}</p>
+    <p><strong>Титул/Звание</strong>: {{ object.title }}</p>
+    <p><strong>Должность</strong>: {{ object.position }}</p>
+    <p><strong>Семейное положение</strong>: {{ object.family_state }}</p>
+    <p><strong>Общеизвестная информация</strong>: {{ object.description }}</p>
+    <p><strong>Партия</strong>: {{ object.party|default_if_none:"-" }}</p>
+    <p><strong>Военный</strong>: {{ object.military|default_if_none:"-" }}</p>
 
     {% if request.role == object or request.user.is_superuser %}
-        <p><strong>Скелет в шкафу</strong>: {{ object.secret|safe }}</p>
-        <p><strong>Судимость</strong>: {{ object.conviction|safe }}</p>
-        <p><strong>Квента</strong>: {{ object.quest|safe }}</p>
-    {% endif %}
-
-    {% if object.face %}
-        <p><strong>Фас</strong>:<br><img src="{{ object.face.src_300 }}"></p>
-    {% endif %}
-    {% if object.halfface %}
-        <p><strong>Профиль</strong>:<br><img src="{{ object.halfface.src_300 }}"></p>
+        <p><strong>Макарев / Стессель</strong>: {{ object.character_1|default_if_none:"-" }}</p>
+        <p><strong>Вор / честный</strong>: {{ object.character_2|default_if_none:"-" }}</p>
+        <p><strong>Англофилы / русофобы</strong>: {{ object.character_3|default_if_none:"-" }}</p>
+        <p><strong>Революционеры/монархисты</strong>: {{ object.character_4|default_if_none:"-" }}</p>
+        <p><strong>Россия/Япония</strong>: {{ object.character_5|default_if_none:"-" }}</p>
+        <p><strong>Квента</strong>: {{ object.quest|safe|default_if_none:"-" }}</p>
     {% endif %}
 {% endblock %}
+

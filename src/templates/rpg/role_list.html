@@ -7,14 +7,17 @@
     <table class="roles">
         {% for role in object_list %}
             <tr class="{% cycle 'tr_odd' 'tr_even' %}">
-                <td><a href="{% url "role" role.id %}">{{ role.name }}</a>
-                    {% if request.role %}<a href="{% url "messages_history" role.id %}"><img src="{% static "rpg/i/email.png" %}"></a>
+                <td><a href="{% url "rpg:role" role.id %}">{{ role }}</a>
+                    {% if request.role %}<a href="{% url "messages:talk" role.id %}"><img src="{% static "rpg/i/email.png" %}"></a>
                     {% endif %}</td>
-                <td>{{ role.work|default:"" }}</td>
                 <td>{% if role.user %}{{ role.user }}{% else %}-{% endif %}</td>
             </tr>
         {% endfor %}
     </table>
+
+    {% if not request.role %}
+        <p>Меня не устраивают существующие роли, я хочу <a href="{% url "rpg:request_new" %}">создать новую</a>.</p>
+    {% endif %}
 
     {% if request.user.is_superuser %}
         <p>
