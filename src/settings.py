@@ -17,7 +17,7 @@ SECRET_KEY = '$osaxn9739un(n#9NDnu(#nd(UNDISNU32IO18h'
 ALLOWED_HOSTS = ['port-artur.com.ru']
 DOMAIN = 'port-artur.com.ru'
 
-SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'senni@mail.ru'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'glader.ru@gmail.com'
 ADMINS = (('Glader', 'glader.ru@gmail.com'),)
 MANAGERS = (('Senni', 'senni@mail.ru'),)
 
