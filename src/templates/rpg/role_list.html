@@ -5,11 +5,22 @@
     <h1>Роли</h1>
 
     <table class="roles">
+        <tr>
+            <th>Персонаж</th>
+            <th>&nbsp;</th>
+            <th>Возраст</th>
+            <th>Должность</th>
+            <th>Титул</th>
+            <th>Игрок</th>
+        </tr>
         {% for role in object_list %}
             <tr class="{% cycle 'tr_odd' 'tr_even' %}">
-                <td><a href="{% url "rpg:role" role.id %}">{{ role }}</a>
-                    {% if request.role %}<a href="{% url "messages:talk" role.id %}"><img src="{% static "rpg/i/email.png" %}"></a>
+                <td><a href="{% url "rpg:role" role.id %}">{{ role }}</a></td>
+                <td>{% if request.role %}<a href="{% url "messages:talk" role.id %}"><img src="{% static "rpg/i/email.png" %}"></a>
                     {% endif %}</td>
+                <td>{{ role.age }}</td>
+                <td>{{ role.position }}</td>
+                <td>{{ role.title }}</td>
                 <td>{% if role.user %}
                     {{ role.user }}
                 {% else %}
