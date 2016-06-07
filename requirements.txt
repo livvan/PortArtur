@@ -1,5 +1,5 @@
 django-wysiwyg-redactor==0.4.9
-Django==1.9.6
+Django==1.9.7
 django_yafotki==0.7.3
 gunicorn==19.6.0
 logging==0.4.9.6
