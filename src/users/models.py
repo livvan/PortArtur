@@ -20,6 +20,7 @@ class Profile(models.Model):
     photo = YFField(verbose_name='Фото', upload_to=ALBUM, blank=True, null=True, default=None)
     wishes = models.TextField(verbose_name='Во что хотите играть', default='', blank=True)
     hates = models.TextField(verbose_name='Во что не хотите играть', default='', blank=True)
+    money = models.IntegerField(verbose_name='Внесенная оплата', default=0)
 
     class Meta:
         verbose_name = 'Профиль'
