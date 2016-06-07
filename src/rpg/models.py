@@ -32,17 +32,17 @@ class Role(models.Model):
                              choices=(('war', 'Партия войны'), ('peace', 'Партия мира')))
     military = models.CharField(verbose_name='Военный', max_length=255, null=True, blank=True, default=None,
                                 choices=(('army', 'Армия'), ('navy', 'Флот')))
-    character_1 = models.CharField(verbose_name='Макарев / Стессель',
+    character_1 = models.CharField(verbose_name='Макаров / Стессель',
                                    max_length=255, null=True, blank=True, default=None,
-                                   choices=(('1', 'Макарев'), ('2', 'Стессель')))
+                                   choices=(('1', 'Макаров'), ('2', 'Стессель')))
     character_2 = models.CharField(verbose_name='Вор / честный', max_length=255, null=True, blank=True, default=None,
                                    choices=(('1', 'Вор'), ('2', 'честный')))
-    character_3 = models.CharField(verbose_name='Англофилы / русофобы',
+    character_3 = models.CharField(verbose_name='Англофилы / Русофилы',
                                    max_length=255, null=True, blank=True, default=None,
-                                   choices=(('1', 'Англофилы'), ('2', 'русофобы')))
+                                   choices=(('1', 'Англофилы'), ('2', 'Русофилы')))
     character_4 = models.CharField(verbose_name='Революционеры/монархисты',
                                    max_length=255, null=True, blank=True, default=None,
-                                   choices=(('1', 'Революционеры'), ('2', 'монархисты')))
+                                   choices=(('1', 'Революционеры'), ('2', 'Монархисты')))
     character_5 = models.CharField(verbose_name='Россия/Япония',
                                    max_length=255, null=True, blank=True, default=None,
                                    choices=(('1', 'Россия'), ('2', 'Япония')))
