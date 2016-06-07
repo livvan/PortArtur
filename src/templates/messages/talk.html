@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Переписка с {{ receiver }}</h1>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Отправить">
+    </form>
+    <br><br>
+    <table class="record-table">
+        <tbody>
+            {% for message in messages %}
+                <tr><td><small><nobr>{{ message.dt }}</nobr></small><td>{{ message.sender }}</td><td>{{ message.message }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p><a href="{% url "messages:index" %}">Вернуться</a></p>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Переписка</h1>
+
+    <ul>
+        {% for talk in conversation %}
+            <li><a href="{% url "messages:talk" talk.role.id %}">{{ talk.role }}</a>: {{ talk.total }}{% if talk.unread %} (<strong>{{ talk.unread }}</strong>){% endif %}</li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url "messages:compose" %}">Написать</a> новое письмо</p>
+{% endblock %}

@@ -24,14 +24,15 @@ class IndexView(TemplateView):
         for message in models.Message.objects.filter(Q(sender=self.request.role) | Q(receiver=self.request.role)):
             for role in (message.sender, message.receiver):
                 if role != self.request.role:
-                    if role.name not in conversation:
-                        conversation[role.name] = {'total': 0, 'unread': 0, 'role': role}
-                    conversation[role.name]['total'] += 1
+                    name = unicode(role)
+                    if name not in conversation:
+                        conversation[name] = {'total': 0, 'unread': 0, 'role': role}
+                    conversation[name]['total'] += 1
                     if self.request.role == message.receiver and not message.readed:
-                        conversation[role.name]['unread'] += 1
+                        conversation[name]['unread'] += 1
 
         context['conversation'] = conversation.values()
-        context['conversation'].sort(key=lambda t: t['role'].name)
+        context['conversation'].sort(key=lambda t: unicode(t['role']))
         return context
 
 

@@ -13,18 +13,6 @@ class Message(models.Model):
     readed = models.BooleanField(verbose_name='Прочитано', default=False)
     dt = models.DateTimeField(auto_now_add=True)
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.sender.records.create(
-                category='Переписка',
-                message='Вы отправили сообщение для %s' % self.receiver.name
-            )
-            self.receiver.records.create(
-                category='Переписка',
-                message='Вы получили сообщение от %s' % self.sender.name
-            )
-        return super(Message, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = 'Сообщение'
         verbose_name_plural = 'Сообщения'

@@ -12,4 +12,4 @@ def role_link(context):
     if context['request'].role:
         return reverse('rpg:role_edit', args=[context['request'].role.id])
     else:
-        return reverse('rpg:roles')
+        return reverse('rpg:request')
