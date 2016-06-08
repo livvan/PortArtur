@@ -6,25 +6,19 @@
     <table class="roles">
         <tr>
             <th>Игрок</th>
-            <th>Взнос</th>
             <th>Оплачено</th>
-            <th>Осталось</th>
         </tr>
 
         {% for user in users %}
             <tr class="{% cycle 'tr_odd' 'tr_even' %}">
                 <td><a href="/admin/users/profile/{{ user.profile.id }}/">{{ user.last_name }} {{ user.first_name }}</a></td>
-                <td>{{ user.profile.cost }}</td>
-                <td>{{ user.profile.payment }}</td>
-                <td>{{ user.profile.debt }}</td>
+                <td>{{ user.profile.money }}</td>
             </tr>
         {% endfor %}
 
         <tr style="border-top: 2px solid #000000">
-            <td>Итого</td>
-            <td>{{ total.cost }}</td>
-            <td>{{ total.payment }}</td>
-            <td>{{ total.debt }}</td>
+            <td><strong>Итого</strong></td>
+            <td>{{ total.money }}</td>
         </tr>
     </table>
 {% endblock %}

@@ -19,7 +19,5 @@ urlpatterns = [
         name='report_connections_diagram'),
     url(r'^reports/connections_diagram.json$', views.ReportConnectionsData.as_view(),
         name='report_connections_json'),
-    url(r'^reports/money$', views.MoneyReport.as_view(), name='report_money'),
-    url(r'^reports/bus', views.BusReport.as_view(), name='report_bus'),
     url(r'^reports/full$', views.FullReport.as_view(), name='report_full'),
 ]

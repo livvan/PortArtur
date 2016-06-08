@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Отчеты</h1>
+
+    <ul>
+        <li><a href="{% url "rpg:report_overview" %}">Игроки</a></li>
+        <li><a href="{% url "rpg:report_connections_diagram" %}">Ёж</a></li>
+        <li><a href="{% url "users:report_money" %}">Оплата</a></li>
+        <li><a href="{% url "bus:report" %}">Автобус</a></li>
+        <li><a href="{% url "rpg:report_full" %}">Распечатка</a></li>
+    </ul>
+{% endblock %}

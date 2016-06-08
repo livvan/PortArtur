@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^rpg/', include('rpg.urls', namespace='rpg')),
     url(r'^users/', include('users.urls', namespace='users')),
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
+    url(r'^reports$', TemplateView.as_view(template_name='reports.html'), name='reports'),
 ]
 
 if settings.DEBUG:

@@ -133,7 +133,7 @@ class RoleRelationsView(TemplateView):
 
         if context['formset'].is_valid():
             context['formset'].save()
-            return HttpResponseRedirect(reverse('role_relations', args=[self.object.id]) + '?save=ok')
+            return HttpResponseRedirect(reverse('rpg:role_relations', args=[self.object.id]) + '?save=ok')
         else:
             return self.render_to_response(context)
 
@@ -180,46 +180,6 @@ class ReportConnectionsData(TemplateView):
             })
 
         return HttpResponse(dumps(result, indent=2, ensure_ascii=False), content_type='application/json; charset=UTF-8')
-
-
-@class_view_decorator(superuser_required)
-class MoneyReport(TemplateView):
-    template_name = 'rpg/reports/money.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(MoneyReport, self).get_context_data(**kwargs)
-        context['users'] = get_user_model().objects.filter(role__isnull=False).order_by('last_name')
-        context['total'] = {
-            'payment': 0,
-            'cost': 0,
-            'debt': 0,
-        }
-        for user in context['users']:
-            user.profile, _ = Profile.objects.get_or_create(user=user)
-            user.profile.debt = user.profile.cost - user.profile.payment
-
-            context['total']['cost'] += user.profile.cost
-            context['total']['payment'] += user.profile.payment
-            context['total']['debt'] += user.profile.debt
-
-        return context
-
-
-@class_view_decorator(superuser_required)
-class BusReport(TemplateView):
-    template_name = 'rpg/reports/bus.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(BusReport, self).get_context_data(**kwargs)
-        context['users'] = get_user_model().objects.filter(role__isnull=False).order_by('last_name')
-        context['total'] = 0
-        context['total_back'] = 0
-        for user in context['users']:
-            user.profile, _ = Profile.objects.get_or_create(user=user)
-
-            context['total'] += int(user.profile.bus)
-            context['total_back'] += int(user.profile.bus_back)
-        return context
 
 
 @class_view_decorator(superuser_required)

@@ -1,13 +1,15 @@
 # coding: utf8
 from __future__ import unicode_literals
 
-from django.contrib.auth import login
+from django.contrib.auth import login, get_user_model
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 from django.core.mail import send_mail
 
+from rpg.decorators import class_view_decorator, superuser_required
 from users import forms
+from users.models import Profile
 
 
 class CabinetView(FormView):
@@ -71,3 +73,20 @@ class LoginView(FormView):
     def form_valid(self, form):
         login(self.request, form.cleaned_data['user'])
         return super(LoginView, self).form_valid(form)
+
+
+@class_view_decorator(superuser_required)
+class MoneyReport(TemplateView):
+    template_name = 'users/reports/money.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MoneyReport, self).get_context_data(**kwargs)
+        context['users'] = get_user_model().objects.filter(role__isnull=False).order_by('last_name')
+        context['total'] = {
+            'money': 0,
+        }
+        for user in context['users']:
+            user.profile, _ = Profile.objects.get_or_create(user=user)
+            context['total']['money'] += user.profile.money
+
+        return context

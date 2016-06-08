@@ -86,6 +86,9 @@
                             <li><a href="{% url "news:news" %}">Новости</a></li>
                             <li><a href="{% url "rpg:roles" %}">Роли</a></li>
                             <li><a href="{% url "messages:index" %}">Переписка</a></li>
+                            {% if request.user.is_superuser %}
+                                <li><a href="{% url "reports" %}">Отчеты</a></li>
+                            {% endif %}
                         </ul>
                     </td>
 

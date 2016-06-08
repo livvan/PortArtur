@@ -8,6 +8,7 @@ from django.views.generic import FormView, TemplateView
 
 from bus import models, forms
 from rpg.decorators import class_view_decorator, role_required, superuser_required
+from users.models import Profile
 
 
 @class_view_decorator(role_required)
@@ -40,9 +41,12 @@ class ReportView(TemplateView):
         context['tables'] = []
 
         for n, variant in enumerate(settings.BUS_VARIANTS):
+            users = [request.user for request in requests if request.bus[n]]
+            for user in users:
+                user.profile, _ = Profile.objects.get_or_create(user=user)
             context['tables'].append({
                 'title': variant,
-                'users': [request.user for request in requests if request.bus[n]],
+                'users': users,
             })
 
         return context

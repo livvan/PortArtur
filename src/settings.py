@@ -1,3 +1,4 @@
+# coding: utf8
 """
 Django settings for port project.
 
@@ -107,6 +108,9 @@ YAFOTKI_STORAGE_OPTIONS = {
     'username': 'user',
     'album': 'default',
 }
+
+# Bus
+BUS_VARIANTS = ('5 марта, 12:30', '8 марта 12:30')
 
 # Logging
 LOG_DIR = '/var/log/projects/port'
