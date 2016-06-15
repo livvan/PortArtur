@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Редактирование связей роли {{ object.name }}</h1>
+    <h1>Редактирование связей роли {{ object }}</h1>
 
     <form action="" method="POST" id="role_form">
         {% csrf_token %}

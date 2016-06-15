@@ -87,7 +87,7 @@ class Role(models.Model):
         if self.user and self.user.email:
             send_mail(subject, message, None, [self.user.email])
         else:
-            send_mail('Для %s: %s' % (self.name, subject), message, None, [settings.ADMINS[0][1]])
+            send_mail('Для %s: %s' % (self, subject), message, None, [settings.ADMINS[0][1]])
 
     class Meta:
         verbose_name = 'Роль'

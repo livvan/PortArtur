@@ -14,7 +14,7 @@ class RequestForm(forms.Form):
         super(RequestForm, self).__init__(*args, **kwargs)
 
         self.fields['role'].widget.choices = [
-            (role.id, role.name)
+            (role.id, unicode(role))
             for role in Role.objects.filter(user__isnull=True)
         ]
 
